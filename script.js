@@ -1,7 +1,7 @@
 canvas = document.getElementById('canvas');
 
 canvas.width = window.innerWidth -3;
-canvas.height = 800;
+canvas.height = 1000;
 var a = canvas.getContext("2d");
 var b = canvas.getContext("2d");
 var c = canvas.getContext("2d");
@@ -76,16 +76,48 @@ h.lineTo(550,400);
 h.stroke();
 
 
-for (var i = 1; i < 200; i++) {
-	var x = Math.random() * window.innerWidth;
-	var y = Math.random() * window.innerHeight;
-	var z = Math.random() * 30 + 5;
+//for (var i = 1; i < 200; i++) {
+//	var x = Math.random() * window.innerWidth;
+//	var y = Math.random() * window.innerHeight;
+//	var z = Math.random() * 30 + 5;
 
-	var r = Math.round(Math.random() *255);
-	var g = Math.round(Math.random() *255);
-	var b = Math.round(Math.random() *255);
+//	var r = Math.round(Math.random() *255);
+//	var g = Math.round(Math.random() *255);
+//  var b = Math.round(Math.random() *255);
+//c.beginPath();
+//c.fillStyle = "rgb(" + r +","+ g + "," + b +")";
+//c.arc(x,y,z,0,2*Math.PI);
+//c.fill();
+//}
+
+
+x= 100;
+dx=5;
+radius= 20;
+y= 100;
+dy=6;
+
+function animate() {
+	requestAnimationFrame(animate);
+	c.clearRect(0,0, innerWidth,innerHeight);
+
 c.beginPath();
-c.fillStyle = "rgb(" + r +","+ g + "," + b +")";
-c.arc(x,y,z,0,2*Math.PI);
+c.fillStyle = "orange";
+c.arc(x,y,radius,0,2*Math.PI);
 c.fill();
+
+if(x+radius >= innerWidth || x - radius <= 0){
+	dx = -dx;
 }
+
+if(y+radius >= innerHeight || y - radius <= 0){
+	dy = -dy;
+}
+
+x += dx;
+
+y += dy;
+
+
+}
+animate();
