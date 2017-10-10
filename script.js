@@ -91,33 +91,78 @@ h.stroke();
 //}
 
 
-x= 100;
-dx=5;
-radius= 20;
-y= 100;
-dy=6;
+function Circle (x,y,dx,dy,radius){
+	this.x = x;
+	this.y = y;
+	this.dx = dx;
+	this.dy = dy;
+	this.radius = radius;
 
-function animate() {
-	requestAnimationFrame(animate);
-	c.clearRect(0,0, innerWidth,innerHeight);
+	this.update = function(){
 
-c.beginPath();
-c.fillStyle = "orange";
-c.arc(x,y,radius,0,2*Math.PI);
-c.fill();
-
-if(x+radius >= innerWidth || x - radius <= 0){
-	dx = -dx;
+		if(this.x+this.radius >= innerWidth || this.x - this.radius <= 0){
+		this.dx = -this.dx;
 }
 
-if(y+radius >= innerHeight || y - radius <= 0){
-	dy = -dy;
+		if(this.y+radius >= innerHeight || this.y - this.radius <= 0){
+		this.dy = -this.dy;
+}
+		this.x += this.dx;
+		this.y += this.dy;
+
+		this.draw();
+	}
+
+	this.draw = function(){
+		c.beginPath();
+		c.fillStyle = "orange";
+		c.arc(this.x,this.y,this.radius,0,2*Math.PI);
+		c.fill();
+	}
+}
+var circleArray = [];
+
+for (var i = 0 ; i < 100; i++) {
+
+var x = Math.floor(Math.random() * (window.innerWidth-20)+20);
+var y =  Math.floor(Math.random() * (window.innerHeight-20)+20);
+var dx = (Math.random() - 0.5) * 7;
+var dy = (Math.random() - 0.5) * 8;
+var radius = 30;
+
+circleArray.push(new Circle(x,y,dx,dy,20));
 }
 
-x += dx;
+// x= 100;
+// dx=5;
+// radius= 20;
+// y= 100;
+// dy=6;
 
-y += dy;
+	 function animate() {
+ 	requestAnimationFrame(animate);
+ 	c.clearRect(0,0, innerWidth,innerHeight);
+ 	for (var i = 0; circleArray.length > i; i++) {
+ 		circleArray[i].update();
+ 	}
+
+// c.beginPath();
+// c.fillStyle = "orange";
+// c.arc(x,y,radius,0,2*Math.PI);
+// c.fill();
+
+// if(x+radius >= innerWidth || x - radius <= 0){
+// 	dx = -dx;
+// }
+
+// if(y+radius >= innerHeight || y - radius <= 0){
+// 	dy = -dy;
+// }
+
+// x += dx;
+
+// y += dy;
 
 
-}
-animate();
+ }
+ animate();
